@@ -28,6 +28,7 @@
 #include "lwip/apps/mqtt.h"
 
 #include "lwip/dhcp.h"
+#include "lwip/dns.h"
 #include "lwip/netdb.h"
 #include "lwip/tcpip.h"
 
@@ -240,6 +241,10 @@ void netifStatusCallback(netif* const netif)
 			ip4addr_ntoa_r(netif_ip4_gw(netif), buffer, sizeof(buffer)));
 	fiprintf(standardOutputStream, "  netmask = %s\r\n",
 			ip4addr_ntoa_r(netif_ip4_netmask(netif), buffer, sizeof(buffer)));
+	fiprintf(standardOutputStream, "  dns1 = %s\r\n",
+			ip4addr_ntoa_r(dns_getserver(0), buffer, sizeof(buffer)));
+	fiprintf(standardOutputStream, "  dns2 = %s\r\n",
+			ip4addr_ntoa_r(dns_getserver(1), buffer, sizeof(buffer)));
 }
 
 }	// namespace
